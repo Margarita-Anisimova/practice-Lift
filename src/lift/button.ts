@@ -16,7 +16,7 @@ export default class Button {
         this.floor = new PIXI.Container();
         let texture = PIXI.Texture.from('assets/floor1.png');
         let background = new PIXI.Sprite(texture);
-        background.position.set(100, this.number * 100 + 10 * this.number);
+        background.position.set(100, this.number * 100 + 10 * this.number + 10);
         background.width = 300;
         background.height = 100;
 
@@ -24,7 +24,7 @@ export default class Button {
         this.button.width = 30;
         this.button.height = 30;
         this.button.x = 100;
-        this.button.y = this.number * 100 + 10 * this.number;
+        this.button.y = this.number * 100 + 10 * this.number + 10;
         this.button.buttonMode = true;
         this.button.interactive = true;
         this.button.on('pointerdown', this.onClick.bind(this));

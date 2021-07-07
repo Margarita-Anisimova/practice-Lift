@@ -11,6 +11,8 @@ export default class LiftLogic {
     private inWay: boolean;
     public queue: Map<number, Button>;
     public queue2: Map<number, Button>;
+    private liftSpeed: number = 900;
+    private doorsSpeed: number = 700;
 
 
     constructor(lift: any) {
@@ -59,7 +61,7 @@ export default class LiftLogic {
                 this.updateLiftInNeedFloor();
                 this.inWay = this.task?.number != 4 ? false : true;
             }
-            this.lift.cabin.cabin.y = this.lift.cabin.cabin.y - d / 1000 * 500;
+            this.lift.cabin.cabin.y = this.lift.cabin.cabin.y - d / 1000 * this.liftSpeed;
         }
         else if (this.lift.cabin.cabin.y > this.task!.button.y) {
             this.updateLiftInNeedFloor();
@@ -69,7 +71,7 @@ export default class LiftLogic {
                 this.inWay = true;
             }
         } else if (!this.inWay) {
-            this.lift.cabin.cabin.y = this.lift.cabin.cabin.y + d / 1000 * 500;
+            this.lift.cabin.cabin.y = this.lift.cabin.cabin.y + d / 1000 * this.liftSpeed;
         }
     }
 
@@ -98,7 +100,7 @@ export default class LiftLogic {
 
     createNewDoor(d: number, width: number = -1): void {
         let doorWidth = this.lift.cabin.door.width;
-        let speed = d / 1000 * 700 * this.DoorsState;
+        let speed = d / 1000 * this.doorsSpeed * this.DoorsState;
         if (width === -1) {
             width = speed + doorWidth;
         }
