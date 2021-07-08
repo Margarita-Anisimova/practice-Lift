@@ -23,7 +23,7 @@ export default class LiftLogic {
         this.queue2 = new Map<number, Button>();
         this.inWay = true;
         this.doors = false;
-        this.task = this.lift.buttons[this.lift.buttons.length - 1];
+        this.task = this.lift.buttons[lift.floorsCount - 1];
     }
 
 
@@ -41,7 +41,7 @@ export default class LiftLogic {
         window.app.ticker.add((d) => {
             if (!this.doors) {
                 if (this.queue.size == 0 && this.task?.number != 4) {
-                    this.buttonClick(this.lift.buttons[this.lift.buttons.length - 1]);
+                    this.buttonClick(this.lift.buttons[this.lift.floorsCount - 1]);
                 }
                 let arr = Array.from(this.queue.entries()).sort((a, b) => a[0] - b[0]);
                 this.task = arr.length != 0 ? arr[0][1] : this.task;
@@ -62,21 +62,34 @@ export default class LiftLogic {
                 this.inWay = this.task?.number != 4 ? false : true;
             }
             this.lift.cabin.cabin.y = this.lift.cabin.cabin.y - d / 1000 * this.liftSpeed;
+            this.drawNewRope();
         }
         else if (this.lift.cabin.cabin.y > this.task!.button.y) {
             this.updateLiftInNeedFloor();
-            if (this.task!.number === this.lift.buttons.length - 1) {
+            if (this.task!.number === this.lift.floorsCount - 1) {
                 this.queue = this.queue2;
                 this.queue2 = new Map<number, Button>();
                 this.inWay = true;
             }
         } else if (!this.inWay) {
             this.lift.cabin.cabin.y = this.lift.cabin.cabin.y + d / 1000 * this.liftSpeed;
+            this.drawNewRope();
         }
+    }
+
+    drawNewRope() {
+        this.lift.scene.removeChild(this.lift.cabin.rope);
+        this.lift.cabin.rope = new PIXI.Graphics();
+        this.lift.cabin.rope.lineStyle(4, 0x000000);
+        this.lift.cabin.rope.moveTo(this.lift.cabin.cabin.width / 2 - 0.5, 0);
+        this.lift.cabin.rope.lineTo(this.lift.cabin.cabin.width / 2 - 0.5, this.lift.cabin.cabin.y);
+        this.lift.cabin.rope.zIndex = -1;
+        this.lift.scene.addChild(this.lift.cabin.rope);
     }
 
     updateLiftInNeedFloor() {
         this.lift.cabin.cabin.y = this.task!.button.y;
+        this.drawNewRope();
         this.task!.button.tint = 0x05ff0d;
         this.task!.button.interactive = false;
         this.doors = true;
@@ -85,7 +98,7 @@ export default class LiftLogic {
     moveDoor(d: number) {
         if (this.lift.cabin.door.width >= 76) {
             this.createNewDoor(d, 76);
-            this.DoorsState = DoorsState.Closed;
+            setTimeout(() => this.DoorsState = DoorsState.Closed, 1000)
         }
         this.createNewDoor(d);
 

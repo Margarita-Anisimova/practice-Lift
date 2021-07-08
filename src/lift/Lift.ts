@@ -6,16 +6,18 @@ export default class Lift {
     public cabin: Cabin;
     public buttons: Button[];
     public logic: LiftLogic;
-    private floorsCount: number;
+    public floorsCount: number;
     public scene: PIXI.Container;
 
     constructor() {
 
         this.scene = this.createScene();
         window.app.stage.addChild(this.scene);
+        this.scene.sortableChildren = true;
 
         this.floorsCount = 5;
         this.buttons = this.createButton();
+
         this.cabin = new Cabin(this);
         this.logic = new LiftLogic(this);
     }
