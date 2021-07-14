@@ -1,3 +1,4 @@
+import { Graphics } from "pixi.js-legacy";
 import AbstractState from "./states/AbstractState";
 import Idle1 from "./states/Idle1";
 import Idle2 from "./states/Idle2";
@@ -113,26 +114,54 @@ export default class Demo {
 
                 // create an AnimatedSprite (brings back memories from the days of Flash, right ?)
                 const anim = new PIXI.AnimatedSprite(frames);
-
                 /*
                  * An AnimatedSprite inherits all the properties of a PIXI sprite
                  * so you can change its position, its anchor, mask it, etc
                  */
+                this.anim = anim;
                 anim.x = window.app.screen.width / 2;
                 anim.y = window.app.screen.height / 2;
                 anim.anchor.set(0.5);
                 anim.animationSpeed = 0.5;
                 anim.play();
-
                 this.addToStage(anim);
-                this.anim = anim;
+                this.addTween().addControl(anim).do({ x: [100, 1200] }, Tween.ElasticOut).start(3000, undefined, -1);
 
-                this.addTween().addControl(anim).do({ x: [50, 1500] }).start(1000, undefined, -1);
-                // this.addTween().a
+
+                // let er = new Graphics();
+                // er.lineStyle(5, 0x000000, 1);
+                // er.moveTo(0, 700);
+                // er.lineTo(1500, 700);
+                // er.endFill();
+                // this.addToStage(er);
+                // let d = new Graphics();
+                // d.beginFill(0x000000);
+                // d.drawCircle(100, 50, 40);
+                // d.endFill();
+                // this.addToStage(d);
+                // this.h = 0;
+                // this.interval = setInterval(() => {
+
+                //     this.addTween().addControl(d).do({ y: [ this.h, 600] }, Tween.CubicIn).start(500, undefined, 1);
+                //     this.h += 80
+                //     if ( this.h >= 600) {
+                //         clearInterval(this.interval);
+                //         this.tweens = [];
+                //     }
+                //     setTimeout(() => {
+                //         let r = this.addTween().addControl(d).do({ y: [600,  this.h] }, Tween.CubicOut);
+                //         r.start(500, undefined, 1);
+                //     }, 500);
+                // }, 1000);
+                // setTimeout(() => {
+                //     this.addTween().addControl(d).do({ x: [0, 1500] }).start(7000, undefined, 1);
+                // }, 1000);
+
+
+
+
             });
     }
-    //отскок
-    //
 
     addToStage(element: PIXIElement) {
         window.app.stage.addChild(element);

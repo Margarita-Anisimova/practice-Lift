@@ -3,6 +3,8 @@ import * as PIXI from "pixi.js-legacy";
 import Handlers from "./utils/handlers";
 import Demo from "./demo/Demo";
 import Lift from "./lift/Lift";
+import Slot_Machine from "./Slot_Machine/slot_Machine";
+
 
 initPIXI();
 const handlers = new Handlers();
@@ -13,9 +15,10 @@ start();
  * Инициализация PIXI
  */
 function start(): void {
-    const lift = new Lift();
+    // const lift = new Lift();
     // const demo = new Demo();
     // demo.start();
+    let e = new Slot_Machine();
 }
 
 function initPIXI(): void {

@@ -523,7 +523,7 @@ export default class Tween {
         return k * k * ((s + 1) * k - s);
     }
     static BackOut: Function = (k: number): number => {
-        const s = 1.70158;
+        const s = 4//1.70158;
         return --k * k * ((s + 1) * k + s) + 1;
     }
     static BackInOut: Function = (k: number): number => {
