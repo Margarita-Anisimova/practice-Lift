@@ -34,7 +34,7 @@ function initPIXI(): void {
     const app = new PIXI.Application({
         width: window.sceneWidth,
         height: window.sceneHeight,
-        ///transparent: true,
+        // transparent: true,
         forceCanvas: true,
         backgroundColor: 0xcfceed,
         view: <HTMLCanvasElement>getElement("scene")
@@ -42,6 +42,11 @@ function initPIXI(): void {
     window.renderer = app.renderer;
     window.app = app;
     getElement("sceneDiv").appendChild(app.view);
+
+    // let back = new PIXI.Sprite(PIXI.Texture.from('assets/background.png'));
+    // back.width = window.sceneWidth;
+    // back.height = window.sceneHeight;
+    // window.app.stage.addChild(back);
 }
 
 function getElement(elementName: string): HTMLElement {
