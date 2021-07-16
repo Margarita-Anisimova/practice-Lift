@@ -13,7 +13,11 @@ export default class Slot_Machine_Tweens {
 
         window.app.ticker.add(() => {
             for (let i = 0; i < this.tweens.length; i++) {
+
                 this.tweens[i].update(window.app.ticker.elapsedMS);
+                if (this.tweens[i].finished) {
+                    this.tweens.splice(i, 1);
+                }
             }
         });
     }
@@ -31,7 +35,7 @@ export default class Slot_Machine_Tweens {
             this.newStopTween(tween)
             if (columnNumber === this.slot_Machine.field.columnsArr.length - 1) {
                 this.slot_Machine.startButton.button.interactive = true;
-                this.slot_Machine.startButton.button.texture = this.slot_Machine.field.textures.buttonTextures[0];
+                this.slot_Machine.startButton.button.texture = this.slot_Machine.textures.buttonTextures[0];
                 this.slot_Machine.isRunning = false;
                 this.slot_Machine.checkWin();
             }

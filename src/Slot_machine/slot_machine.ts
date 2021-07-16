@@ -2,49 +2,36 @@
 import StartButton from "./StartButton";
 import Field from "./Field";
 import Slot_Machine_Tweens from "./Slot_Machine_Tweens";
-import Frames from "./frames";
+import Textures from "./textures";
 
 export default class Slot_Machine {
     public startButton: StartButton;
     public field: Field;
     public slot_Machine_Tweens: Slot_Machine_Tweens;
     public isRunning: boolean;
-
-    //private frames: Frames;
-
+    public textures: Textures;
 
     constructor() {
-        // this.frames = new Frames();
-
+        this.textures = new Textures();
         this.isRunning = false;
-        this.field = new Field();
+        this.field = new Field(this);
         this.startButton = new StartButton(this);
         this.slot_Machine_Tweens = new Slot_Machine_Tweens(this);
 
     }
 
-    addFrame(lineNumber: number) {
-        this.field.winLines[lineNumber].visible = true;
-        // let r = new PIXI.Sprite(this.)
-        // if (lineNumber <= 2) {
-        //     this.winLines.addChild(new PIXI.Sprite(this.f))
-        // }
-        // for (let i = 0; i < 5; i++) {
-        //     this.frames.lineFrames[lineNumber][i].texture = i < length 
-        //     ? this.field.textures.frameTexture[0]
-        //     : this.field.textures.frameTexture[1]
-        // }
-
+    addLine(lineNumber: number) {
+        this.field.winLines.winLines[lineNumber].visible = true;
     }
 
     startАnimation(winLine: PIXI.AnimatedSprite[], lineNumber: number) {
-        if (winLine.length >= 2) {
+        if (winLine.length >= 3) {
 
             for (let e of winLine) {
-                e.animationSpeed = 0.3;
+                e.animationSpeed = 0.1// 0.3;
                 e.play();
             }
-            this.addFrame(lineNumber);
+            this.addLine(lineNumber);
         }
     }
 

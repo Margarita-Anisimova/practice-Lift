@@ -16,7 +16,7 @@ export default class StartButton {
     }
 
     createButton() {
-        let button = new PIXI.Sprite(this.field.textures.buttonTextures[0]);
+        let button = new PIXI.Sprite(this.slot_Machine.textures.buttonTextures[0]);
         this.button = button;
         button.width = 100;
         button.height = 50;
@@ -29,9 +29,9 @@ export default class StartButton {
     }
 
     onClick(): void {
-        this.field.winLines.forEach((e) => e.visible = false);
+        this.field.winLines.winLines.forEach((e) => e.visible = false);
         this.button.interactive = false;
-        this.button.texture = this.field.textures.buttonTextures[1];
+        this.button.texture = this.slot_Machine.textures.buttonTextures[1];
         let time = Math.random() * (2.1 - 1.5) + 1.5;
         for (let i = 0; i < this.field.columnsArr.length; i++) {
             if (this.field.columnsArr[i].y != 100 || !this.slot_Machine.isRunning) {
